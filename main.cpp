@@ -10,6 +10,8 @@ using namespace std;
 
 #include "utils.h"
 
+#include "Builtin.hpp"
+
 #define MAX_ARGS 64
 
 // Takes user input until they quit the shell, and passes that input as
@@ -29,9 +31,12 @@ int main() {
 
     // Implement here the parsing/execution logic
 
+    Builtin* aBuiltin = new Builtin();
+
     // Reset the argv array for next time.
-    for (int i=0; i<argc; i++)
+    for (int i=0; i<argc; i++) {
       argv[i] = NULL;
+    }
   }
 
   return 0;

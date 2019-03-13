@@ -1,0 +1,5 @@
+# Exclude binary
+nutsh
+
+# VS Code shit
+.vscode/
