@@ -1,17 +1,29 @@
-sudo: false
 language: cpp
-compiler:
-- gcc
-addons:
-  apt:
-    sources:
-    - ubuntu-toolchain-r-test
-    packages:
-    - g++-8
-install:
-- "[ $CXX = g++ ] && export CXX=g++-8 || true"
-script:
-- make
+
+matrix:
+  include:
+    - os: linux
+      sudo: false
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-8
+      env:
+        - MATRIX_EVAL="CC=gcc-8 && CXX=g++-8"
+      script:
+        - make
+    - os: osx
+      osx_image: xcode9
+      env:
+        - MATRIX_EVAL="brew install gcc@8 && CC=gcc-8 && CXX=g++-8"
+
+before_install:
+  - eval "${MATRIX_EVAL}"
+
+compiler: gcc
+
 notifications:
   webhooks:
     urls:
@@ -19,6 +31,7 @@ notifications:
     on_success: change
     on_failure: always
     on_start: never
+
 deploy:
   provider: releases
   api_key:
