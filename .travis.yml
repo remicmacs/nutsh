@@ -1,7 +1,7 @@
 sudo: false
 language: cpp
 compiler:
-  - gcc
+- gcc
 addons:
   apt:
     sources:
@@ -9,14 +9,22 @@ addons:
     packages:
     - g++-8
 install:
-  - "[ $CXX = g++ ] && export CXX=g++-8 || true"
+- "[ $CXX = g++ ] && export CXX=g++-8 || true"
 script:
-  - make
-
+- make
 notifications:
   webhooks:
     urls:
-      - "https://scalar.vector.im/api/neb/services/hooks/dHJhdmlzLWNpLyU0MHJvZG9scGhlJTNBbHVuYWkucmUvJTIxVVZUSk54SGhaR3d4cm1LYWZRJTNBbHVuYWkucmU"
-    on_success: always  # always|never|change
+    - https://scalar.vector.im/api/neb/services/hooks/dHJhdmlzLWNpLyU0MHJvZG9scGhlJTNBbHVuYWkucmUvJTIxVVZUSk54SGhaR3d4cm1LYWZRJTNBbHVuYWkucmU
+    on_success: change
     on_failure: always
     on_start: never
+deploy:
+  provider: releases
+  api_key:
+    secure: aywlBJmdBD879fJmHBMEPLfab1yCtSFl2lPGunM6BU5lfeMHOTm4hE8msB4+cwdGAaQqDS4++JPf43WEkS1NS+mhW1kCldmQ5ykvhse+e6xTX8kjwr6VZ1C/22QlXY45vsrj0eMFW0UU9M/scs7RInwoKWIZRChRZtfLqQhrJzNACc1pefA/+6dWti4B+OijtEfP90ry9/01nz+gHkyf84OIWuN3K5HY7K4VrfvbaQcHKlysWYGB/vXQz8Rqe+sOwTXaquCKBNbUzEVCB0C1tMGcsiyaaEeXhHERov7NJ2H4RXlEUb7jlZv18XuxV9/rtDjxtMQiX0BuX9/juoPgPAM5qTNh+JKyb7KstZmBpPj+6JfXYj8uI7eK9d26X5iuzqyyb0vKAaNTA45KbKC0Z09HpYB+i2ASbIZLfQsSfohU1W+vIz1BW9tS46i9kTHLL2RkVxSBd3WNY7C0Ll/G68PCcqhB0tswolbKpDNaMDW01rbNc6HZJnZsilvVnObaDEvpadJFCiUNrE9myTsOsWPGzGsTzECNUxjPOwbJdDITzfCMtzKdZ/ubQmqmPCYMAm9a0rX3l3qk/g+xMLeQl14CBK+fCW6DtHb2hgU7nUOH9lF7tRBAeW1VzOXk9JwR2SzWU078Xvc9zVPFlAIy1gPGKnZFJOP0Dgk+79zqPSU=
+  file: nutsh
+  skip_cleanup: true
+  overwrite: true
+  on:
+    repo: remicmacs/nutsh
