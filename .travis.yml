@@ -9,4 +9,6 @@ addons:
     packages:
     - g++-8
 install:
-- "[ $CXX = g++ ] && export CXX=g++-8 || true"
+  - "[ $CXX = g++ ] && export CXX=g++-8 || true"
+script:
+  - make
