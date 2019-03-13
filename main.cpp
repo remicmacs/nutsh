@@ -10,7 +10,7 @@ using namespace std;
 
 #include "utils.h"
 
-#include "Builtin.hpp"
+#include "CDBuiltin.hpp"
 
 #define MAX_ARGS 64
 
@@ -31,7 +31,21 @@ int main() {
 
     // Implement here the parsing/execution logic
 
-    Builtin* aBuiltin = new Builtin();
+    // Conversion to C++ string for easier comparison
+    string prim = string(argv[0]);
+
+    // Test builtins
+    // TODO: change to hash map string -> Builtin object
+    // Or factory pattern ?
+    if (prim == "cd") { // If it is the cd builtin
+      // pass only first argument (cannot cd in multiple directories)
+      vector<string> myArg;
+      myArg.push_back(string(argv[1]));
+
+      // Build cd builtin command object
+      CDBuiltin myCd = CDBuiltin(string(argv[0]), myArg);
+      myCd.exec();
+    }
 
     // Reset the argv array for next time.
     for (int i=0; i<argc; i++) {
