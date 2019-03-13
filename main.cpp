@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <cstdlib>
 using namespace std;
 
 #include "utils.h"
