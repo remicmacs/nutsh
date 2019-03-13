@@ -3,3 +3,9 @@ nutsh
 
 # VS Code shit
 .vscode/
+
+# Exclude pdf
+*.pdf
+
+# Exclude logo proposition (Rodolphe)
+logo_proposition*
