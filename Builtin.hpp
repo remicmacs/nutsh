@@ -1,3 +1,6 @@
+#ifndef BUILTIN_HPP
+#define BUILTIN_HPP
+
 #include <string>
 #include <vector>
 
@@ -15,3 +18,5 @@ class Builtin {
 
         virtual void exec() = 0;
 };
+
+#endif
