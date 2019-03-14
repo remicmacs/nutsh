@@ -12,14 +12,14 @@ matrix:
           packages:
             - g++-8
       env:
-        - MATRIX_EVAL="CC=gcc-8 && CXX=g++-8"
+        - MATRIX_EVAL="CC=gcc-8 && CXX=g++-8" MAIN=${TRAVIS_OS_NAME}
       script:
         - make
     - name: "nutsh for MacOSX"
       os: osx
       osx_image: xcode9
       env:
-        - MATRIX_EVAL="brew update && brew install gcc@8 && CC=gcc-8 && CXX=g++-8"
+        - MATRIX_EVAL="brew update && brew install gcc@8 && CC=gcc-8 && CXX=g++-8" MAIN=${TRAVIS_OS_NAME}
       script:
         - make
 
@@ -46,7 +46,7 @@ deploy:
   prerelease: true
   api_key:
     secure: QhEs+dGhMuDeEWknqVR23YBVBCA82LwiEvUKDDjASmq1ocsyeHivzMQJAuQHsQyYyw+F0rlcguAwnO+N88hTlJyZI9LP8H639XuRgU7KHVxcofay5dXeEjMcDEMhrVDRc2yO0t0djTHD1GJlduStkk7Ld2DmbpZMWt80chx+llR4GG7cSdfxq+FEp91wYGbs2kHOlx3aQ3Z/T+IC8np0n8dRV7MZ9uGXsvhPdtXXJZKglxT22VwpYw+op6dTSB18kCj5A+CLQs3/LbZhW6CoADdqWweAjF9VFxrwdu/5Q6rN5oaAdktz9UjKsTJHMWQDhR1V1mupFWpOD3fhf8GSfEpcLonykhiqwIJzOwAbxnd4uyVfTLhSy89x93MjapBVENfH5YmbyOdzYw8rZBJZP5Wh03F7nt1xMVqHgPpFAfwaq5fJuEZSzRRQxhYjT2MtRiX5eISZ+c2U1+2gd6X8zXZjjwcgSjG0X6pQK+/NnyYxs8Essgy60YA6juRrZ8/pjP1cPyAO33Ag5xeHuECpY/QCnX2wwLKlJgiQwv5UbbJudrvVt4zNc9haCASGilIeZ1W4C7Nt4vIB5PFxiWEltMpupjxr2kGrwWi03/3G2VimKm/8Kk1YPdVWN1BEo52eIQwX0BeaE8ZIXQZqFW0SigCzAfZSJRLJn3TsrCFMNQI=
-  file: nutsh
+  file: nutsh-${TRAVIS_OS_NAME}
   skip_cleanup: true
   overwrite: false
   on:
