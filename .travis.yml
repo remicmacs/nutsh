@@ -2,7 +2,8 @@ language: cpp
 
 matrix:
   include:
-    - os: linux
+    - name: "nutsh for Linux"
+      os: linux
       sudo: false
       addons:
         apt:
@@ -14,12 +15,19 @@ matrix:
         - MATRIX_EVAL="CC=gcc-8 && CXX=g++-8"
       script:
         - make
-    - os: osx
+      branches:
+        only:
+          - master
+    - name: "nutsh for MacOSX"
+      os: osx
       osx_image: xcode9
       env:
         - MATRIX_EVAL="brew update && brew install gcc@8 && CC=gcc-8 && CXX=g++-8"
       script:
         - make
+      branches:
+        only:
+          - master
 
 before_install:
   - eval "${MATRIX_EVAL}"
