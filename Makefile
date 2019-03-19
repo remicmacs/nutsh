@@ -29,8 +29,10 @@ SRCS = utils.cpp main.cpp Builtin.cpp CDBuiltin.cpp PWDBuiltin.cpp
 #
 OBJS = $(SRCS:.c=.o)
 
-# define the executable file 
-MAIN = nutsh
+# define the executable file if $MAIN is not set
+ifeq ($(MAIN),)
+MAIN := nutsh
+endif
 
 #
 # The following part of the makefile is generic; it can be used to 
