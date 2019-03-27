@@ -1,3 +1,6 @@
+#ifndef CDBUILTIN_HPP
+#define CDBUILTIN_HPP
+
 #include "Builtin.hpp"
 
 // Include `chdir(2)` system call
@@ -11,6 +14,9 @@
 
 class CDBuiltin : public Builtin {
     public:
+        CDBuiltin() : Builtin() {};
         CDBuiltin(string cmd, vector<string> args) : Builtin(cmd, args) {};
-        void exec();
+        void exec_base();
 };
+
+#endif

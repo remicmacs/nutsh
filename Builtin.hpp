@@ -10,13 +10,15 @@ class Builtin {
     private:
         string command;
         vector<string> args;
-
+        
     public:
+        Builtin() {};
         Builtin(string command, vector<string> args) : command(command), args(args) {};
         string getCommand();
         vector<string> getArgs();
 
-        virtual void exec() = 0;
+        void exec(string cmd, vector<string> args);
+        virtual void exec_base() = 0;
 };
 
 #endif
