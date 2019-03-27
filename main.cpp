@@ -42,10 +42,14 @@ int main() {
     if (prim == "cd") { // If it is the cd builtin
       // pass only first argument (cannot cd in multiple directories)
       vector<string> myArg;
-      myArg.push_back(string(argv[1]));
+      CDBuiltin myCd;
+      if (argc > 1 ) {
+        myArg.push_back(string(argv[1]));
+        myCd = CDBuiltin(string(argv[0]), myArg);
+      } else {
+        myCd = CDBuiltin(string(argv[0]));
+      }
 
-      // Build cd builtin command object
-      CDBuiltin myCd = CDBuiltin(string(argv[0]), myArg);
       myCd.exec();
     } else if (prim == "pwd") {
       PWDBuiltin pwd = PWDBuiltin(string(argv[0]));
