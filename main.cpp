@@ -19,7 +19,7 @@ using namespace std;
 // Takes user input until they quit the shell, and passes that input as
 // arguments to be run.
 int main() {
-  char *argv[MAX_ARGS], *cmd1[MAX_ARGS], *cmd2[MAX_ARGS];
+  char *argv[MAX_ARGS];
   int argc;
 
   // Keep returning the user to the prompt ad infinitum unless they enter
@@ -52,6 +52,29 @@ int main() {
       pwd.exec();
     } else if (prim == "exit") {
       exit(0);
+    } else {
+      // make a fork
+      pid_t pid = fork();
+
+      if (pid == -1 ) {
+        cerr << "Fork failed: " << strerror(errno) << endl;
+      } else if (pid == 0) { // inside the child
+        int result = execvp(argv[0], argv);
+
+        // Executed only if execvp failed (mostly )
+        // TODO: DEBUG temporary print
+        clog << "Process not replaced for some reason" << endl;
+        if (result == -1) {
+          cerr << "execvp() system call failed: " << strerror(errno) << endl;
+          exit(1);
+        }
+      } else { // parent of fork
+        int status;
+
+        // TODO: manage background vs foreground
+        waitpid(pid, &status, 0);
+        cout << WEXITSTATUS(status);
+      }
     }
 
     // Reset the argv array for next time.
