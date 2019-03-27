@@ -1,5 +1,7 @@
 # the compiler: gcc for C program, define as g++ for C++
-CC = g++
+ifeq ($(CC),)
+CC := g++
+endif
 
 # compiler flags:
 #  -g         adds debugging information to the executable file
