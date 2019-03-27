@@ -8,8 +8,9 @@
 
 class PWDBuiltin : public Builtin {
     public:
+        PWDBuiltin() : Builtin() {};
         PWDBuiltin(string cmd, vector<string> args = vector<string>()) : Builtin(cmd, args) {};
-        void exec();
+        void exec_base();
 };
 
 #endif
