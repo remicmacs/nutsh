@@ -13,6 +13,7 @@ using namespace std;
 
 #include "CDBuiltin.hpp"
 #include "PWDBuiltin.hpp"
+#include "EchoBuiltin.hpp"
 
 #define MAX_ARGS 64
 
@@ -50,6 +51,10 @@ int main() {
     } else if (prim == "pwd") {
       PWDBuiltin pwd = PWDBuiltin(string(argv[0]));
       pwd.exec();
+    } else if (prim == "echo") {
+      vector<string> args = vector<string>(argv + 1, argv + argc);
+      EchoBuiltin echo = EchoBuiltin(string(argv[0]), args);
+      echo.exec();
     } else if (prim == "exit") {
       exit(0);
     }

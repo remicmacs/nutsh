@@ -17,7 +17,7 @@ LIBS =
 INCLUDES =
 
 # define the C source files
-SRCS = utils.cpp main.cpp Builtin.cpp CDBuiltin.cpp PWDBuiltin.cpp
+SRCS = utils.cpp main.cpp Builtin.cpp CDBuiltin.cpp PWDBuiltin.cpp EchoBuiltin.cpp
 
 # define the C object files 
 #
