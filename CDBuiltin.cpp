@@ -1,6 +1,6 @@
 #include "CDBuiltin.hpp"
 
-void CDBuiltin::exec() {
+void CDBuiltin::exec_base() {
     string target = this->getArgs().at(0);
     chdir(target.c_str());
 
