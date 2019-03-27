@@ -10,10 +10,9 @@ class Builtin {
     private:
         string command;
         vector<string> args;
-        
+
     public:
         Builtin() {};
-        Builtin(string command, vector<string> args) : command(command), args(args) {};
         string getCommand();
         vector<string> getArgs();
 

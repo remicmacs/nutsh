@@ -1,6 +1,6 @@
 #ifndef CDBUILTIN_HPP
 #define CDBUILTIN_HPP
-
+// TODO: Use built in constants in climits for max buffer size, etc.
 #include "Builtin.hpp"
 
 // Include `chdir(2)` system call
@@ -15,7 +15,6 @@
 class CDBuiltin : public Builtin {
     public:
         CDBuiltin() : Builtin() {};
-        CDBuiltin(string cmd, vector<string> args) : Builtin(cmd, args) {};
         void exec_base();
 };
 

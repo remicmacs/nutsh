@@ -38,7 +38,7 @@ int main() {
     string prim = string(argv[0]);
 
     if (builtins.has(prim)) {
-      builtins.exec(prim, vector<string>(argv + 1, argv + argc));
+        builtins.exec(prim, vector<string>(argv + 1, argv + argc));
     } else if (prim == "exit") {
       exit(0);
     } else {
@@ -51,7 +51,11 @@ int main() {
         int result = execvp(argv[0], argv);
 
         // Executed only if execvp failed (mostly )
-        // TODO: DEBUG temporary print
+        // FIXME: reached this after a `hexdump nutsh` but the filename `nutsh`
+        // had been written after inserting a tab by mistake and deleting it // // with backspace.
+        // `execvp() system call failed: No such file or directory`
+        // Is it reproducible ?
+        // DEBUG: temporary print
         clog << "Process not replaced for some reason" << endl;
         if (result == -1) {
           cerr << "execvp() system call failed: " << strerror(errno) << endl;
@@ -62,6 +66,8 @@ int main() {
 
         // TODO: manage background vs foreground
         waitpid(pid, &status, 0);
+
+        // TODO: save as global state of shell for prompt ?
         cout << WEXITSTATUS(status);
       }
     }
