@@ -2,9 +2,10 @@
 CC = g++
 
 # compiler flags:
-#  -g    adds debugging information to the executable file
-#  -Wall turns on most, but not all, compiler warnings
-CFLAGS  = -g -Wall
+#  -g         adds debugging information to the executable file
+#  -std=c++17 force using c++17
+#  -Wall      turns on most, but not all, compiler warnings
+CFLAGS  = -g -std=c++17 -Wall
 
 # define any libraries to link into executable:
 #   if I want to link in libraries (libx.so or libx.a) I use the -llibname 
