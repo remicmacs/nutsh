@@ -12,19 +12,22 @@ matrix:
           packages:
             - g++-8
       env:
-        - MATRIX_EVAL="CC=gcc-8 && CXX=g++-8" MAIN=nutsh-${TRAVIS_OS_NAME}
+        - MAIN=nutsh-${TRAVIS_OS_NAME}
+      install:
+        - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-8 90
       script:
         - make
     - name: "nutsh for MacOSX"
       os: osx
       osx_image: xcode9
       env:
-        - MATRIX_EVAL="brew update && brew install gcc@8 && CC=gcc-8 && CXX=g++-8" MAIN=nutsh-${TRAVIS_OS_NAME}
+        - MAIN=nutsh-${TRAVIS_OS_NAME}
+      before_install:
+        - brew update && brew install gcc@8
+      install:
+        - export CXX=g++-8
       script:
         - make
-
-before_install:
-  - eval "${MATRIX_EVAL}"
 
 branches:
   except:
