@@ -11,6 +11,11 @@ void Builtins::exec(string cmd, vector<string> args) {
             pwd = new PWDBuiltin();
         }
         pwd->exec(cmd, args);
+    } else if (cmd == "echo") {
+        if (echo == NULL) {
+            echo = new EchoBuiltin();
+        }
+        echo->exec(cmd, args);
     } else {
         cout << cmd << " is not implemented yet" << endl;
     }

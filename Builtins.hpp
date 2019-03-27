@@ -8,11 +8,13 @@
 #include "Builtin.hpp"
 #include "CDBuiltin.hpp"
 #include "PWDBuiltin.hpp"
+#include "EchoBuiltin.hpp"
 
 class Builtins {
     private:
         CDBuiltin * cd;
         PWDBuiltin * pwd;
+        EchoBuiltin * echo;
         vector<string> builtins {
             "cd",
             "pwd",
