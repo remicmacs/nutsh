@@ -11,6 +11,7 @@ using namespace std;
 
 #include "utils.h"
 
+#include "EnvBuiltin.hpp"
 #include "CDBuiltin.hpp"
 #include "PWDBuiltin.hpp"
 #include "EchoBuiltin.hpp"
@@ -51,6 +52,12 @@ int main() {
     } else if (prim == "pwd") {
       PWDBuiltin pwd = PWDBuiltin(string(argv[0]));
       pwd.exec();
+      } 
+      else if (prim == "env") {
+      vector<string> myArg;
+      myArg.push_back(string(argv[1]));
+      EnvBuiltin env = EnvBuiltin(string(argv[0]),myArg);
+      env.exec();
     } else if (prim == "echo") {
       vector<string> args = vector<string>(argv + 1, argv + argc);
       EchoBuiltin echo = EchoBuiltin(string(argv[0]), args);
