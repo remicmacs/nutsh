@@ -2,15 +2,14 @@
 
 void CDBuiltin::exec_base() {
     string target = "";
-    vector<string> args = this->getArgs();
-    if (!this->getArgs().empty()) target = this->getArgs().at(0);
+
+    vector<string> args = this->get_args();
+    if (!args.empty()) target = args.at(0);
 
     chdir(target.c_str());
 
-    // TODO: replace by system climits
-    // TODO: return it for modification of the prompt maybe ?
-    char * mycwd = new char[100000];
-    mycwd = getcwd(mycwd, 10000);
+    char * mycwd = new char[PATH_MAX];
+    mycwd = getcwd(mycwd, PATH_MAX);
 
     return;
 }

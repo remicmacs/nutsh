@@ -6,6 +6,9 @@
 #include <iostream>
 #include <limits.h>
 
+/**
+ * The `pwd` shell builtin command
+ */
 class PWDBuiltin : public Builtin {
     public:
         PWDBuiltin() : Builtin() {};
