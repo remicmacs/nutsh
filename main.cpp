@@ -13,6 +13,7 @@ using namespace std;
 #include "utils.h"
 
 #include "Builtins.hpp"
+#include "Prompt.hpp"
 
 #define MAX_ARGS 64
 
@@ -23,12 +24,13 @@ int main() {
   int argc;
 
   Builtins builtins = Builtins();
+  Prompt prompt = Prompt();
 
   // Keep returning the user to the prompt ad infinitum unless they enter
   // 'quit' or 'exit' (without quotes).
   while (true) {
     // Display a prompt.
-    cout << "Nutsh ({}) > ";
+    cout << prompt.getText();
 
     // Read in a command from the user.
     argc = read_args(argv);
@@ -68,8 +70,8 @@ int main() {
         // TODO: manage background vs foreground
         waitpid(pid, &status, 0);
 
-        // TODO: save as global state of shell for prompt ?
-        cout << WEXITSTATUS(status);
+        // Give the status code to the shell
+        prompt.setPreviousReturn(WEXITSTATUS(status));
       }
     }
 

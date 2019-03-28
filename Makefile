@@ -13,14 +13,14 @@ CFLAGS  = -g -std=c++17 -Wall -Wextra -pedantic-errors -Werror -Wcast-qual -Wcto
 #   if I want to link in libraries (libx.so or libx.a) I use the -llibname
 #   option, something like (this will link in libmylib.so and libm.so:
 # example: LIBS = -lm
-LIBS =
+LIBS = -lstdc++fs
 
 # define any directories containing header files other than /usr/include
 # example : INCLUDES = -I../include
 INCLUDES =
 
 # define the C source files
-SRCS = utils.cpp main.cpp Builtin.cpp CDBuiltin.cpp PWDBuiltin.cpp EchoBuiltin.cpp Builtins.cpp
+SRCS = utils.cpp main.cpp Builtin.cpp CDBuiltin.cpp PWDBuiltin.cpp EchoBuiltin.cpp Builtins.cpp Prompt.cpp
 
 # define the C object files
 #
