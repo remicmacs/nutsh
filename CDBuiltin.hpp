@@ -3,6 +3,8 @@
 
 #include "Builtin.hpp"
 
+// TODO: Use built in constants in climits for max buffer size, etc.
+
 // Include `chdir(2)` system call
 #include <unistd.h>
 
@@ -11,11 +13,14 @@
 
 #include <iostream>
 
+#include <climits>
 
+/**
+ * The `cd` shell builtin command
+ */
 class CDBuiltin : public Builtin {
     public:
         CDBuiltin() : Builtin() {};
-        CDBuiltin(string cmd, vector<string> args) : Builtin(cmd, args) {};
         void exec_base();
 };
 

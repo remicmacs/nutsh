@@ -7,10 +7,10 @@ endif
 #  -g         adds debugging information to the executable file
 #  -std=c++17 force using c++17
 #  -Wall      turns on most, but not all, compiler warnings
-CFLAGS  = -g -std=c++17 -Wall
+CFLAGS  = -g -std=c++17 -Wall -Wextra -pedantic-errors -Werror -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wlogical-op -Wmissing-declarations -Wmissing-include-dirs -Wnoexcept -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wsign-conversion -Wsign-promo -Wstrict-null-sentinel -Wstrict-overflow=5 -Wswitch-default -Wundef -Werror -Wno-unused
 
 # define any libraries to link into executable:
-#   if I want to link in libraries (libx.so or libx.a) I use the -llibname 
+#   if I want to link in libraries (libx.so or libx.a) I use the -llibname
 #   option, something like (this will link in libmylib.so and libm.so:
 # example: LIBS = -lm
 LIBS =
@@ -22,7 +22,7 @@ INCLUDES =
 # define the C source files
 SRCS = utils.cpp main.cpp Builtin.cpp CDBuiltin.cpp PWDBuiltin.cpp EchoBuiltin.cpp Builtins.cpp
 
-# define the C object files 
+# define the C object files
 #
 # This uses Suffix Replacement within a macro:
 #   $(name:string1=string2)
@@ -38,7 +38,7 @@ MAIN := nutsh
 endif
 
 #
-# The following part of the makefile is generic; it can be used to 
+# The following part of the makefile is generic; it can be used to
 # build any executable just by changing the definitions above and by
 # deleting dependencies appended to the file from 'make depend'
 #
@@ -48,12 +48,12 @@ endif
 all: $(MAIN)
 	@echo  nutsh has been compiled
 
-$(MAIN): $(OBJS) 
+$(MAIN): $(OBJS)
 	$(CXX) $(CFLAGS) $(INCLUDES) -o $(MAIN) $(OBJS) $(LFLAGS) $(LIBS)
 
 # this is a suffix replacement rule for building .o's from .c's
 # it uses automatic variables $<: the name of the prerequisite of
-# the rule(a .c file) and $@: the name of the target of the rule (a .o file) 
+# the rule(a .c file) and $@: the name of the target of the rule (a .o file)
 # (see the gnu make manual section about automatic variables)
 .c.o:
 	$(CXX) $(CFLAGS) $(INCLUDES) -c $<  -o $@

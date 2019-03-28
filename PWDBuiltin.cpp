@@ -6,6 +6,6 @@ void PWDBuiltin::exec_base() {
     cwd = getcwd(cwd, PATH_MAX);
 
     string cwdStr = string(cwd);
-    cerr << "Current working directory: " << cwdStr << endl;
+    cout << cwdStr << endl;
     return;
 }

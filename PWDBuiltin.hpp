@@ -6,10 +6,12 @@
 #include <iostream>
 #include <limits.h>
 
+/**
+ * The `pwd` shell builtin command
+ */
 class PWDBuiltin : public Builtin {
     public:
         PWDBuiltin() : Builtin() {};
-        PWDBuiltin(string cmd, vector<string> args = vector<string>()) : Builtin(cmd, args) {};
         void exec_base();
 };
 
