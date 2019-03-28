@@ -4,12 +4,14 @@
 #include "Builtin.hpp"
 #include <iostream>
 
+/**
+ * The `echo` shell builtin command
+ */
 class EchoBuiltin : public Builtin {
     private:
         /* data */
     public:
         EchoBuiltin() : Builtin() {};
-        EchoBuiltin(string cmd, vector<string> args) : Builtin(cmd, args) {};
         void exec_base();
 };
 
