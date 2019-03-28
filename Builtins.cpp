@@ -2,20 +2,25 @@
 
 void Builtins::exec(string cmd, vector<string> args) {
     if (cmd == "cd") {
-        if (cd == NULL) {
-            cd = new CDBuiltin();
+        if (this->cd == NULL) {
+            this->cd = new CDBuiltin();
         }
-        cd->exec(cmd, args);
+        this->cd->exec(cmd, args);
     } else if (cmd == "pwd") {
-        if (pwd == NULL) {
-            pwd = new PWDBuiltin();
+        if (this->pwd == NULL) {
+            this->pwd = new PWDBuiltin();
         }
-        pwd->exec(cmd, args);
+        this->pwd->exec(cmd, args);
     } else if (cmd == "echo") {
-        if (echo == NULL) {
-            echo = new EchoBuiltin();
+        if (this->echo == NULL) {
+            this->echo = new EchoBuiltin();
         }
-        echo->exec(cmd, args);
+        this->echo->exec(cmd, args);
+    } else if (cmd == "export") {
+        if (this->_export == NULL) {
+            this->_export = new ExportBuiltin();
+        }
+        this->_export->exec(cmd, args);
     } else {
         cout << cmd << " is not implemented yet" << endl;
     }

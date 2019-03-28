@@ -9,6 +9,7 @@
 #include "CDBuiltin.hpp"
 #include "PWDBuiltin.hpp"
 #include "EchoBuiltin.hpp"
+#include "ExportBuiltin.hpp"
 
 /**
  *  A store for builtin commands.
@@ -21,10 +22,13 @@ class Builtins {
         CDBuiltin * cd;
         PWDBuiltin * pwd;
         EchoBuiltin * echo;
+        ExportBuiltin * _export;
+
         vector<string> builtins {
             "cd",
             "pwd",
-            "echo"
+            "echo",
+            "export"
         };
 
         void exec(Builtin* builtin, vector<string>args);

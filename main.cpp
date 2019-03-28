@@ -1,12 +1,5 @@
-#include <iostream>
-#include <fstream>
-#include <sys/stat.h>
-#include <cerrno>
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/types.h>
 #include <sys/wait.h>
-#include <cstdlib>
+#include <cstring>
 
 using namespace std;
 
