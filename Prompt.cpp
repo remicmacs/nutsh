@@ -1,5 +1,9 @@
 #include "Prompt.hpp"
 
+#ifndef HOST_NAME_MAX
+#define HOST_NAME_MAX 64
+#endif
+
 // Set the colours with ANSI Escape Codes :
 // https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
 // Just change 'ESC' with '\033'
