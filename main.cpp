@@ -13,16 +13,23 @@
 
 using namespace std;
 
-#include "utils.h"
-
 #include "Builtins.hpp"
 #include "Prompt.hpp"
+
+#ifndef MAX_CMDS
+#define MAX_CMDS 16
+#endif
 
 // Takes user input until they quit the shell, and passes that input as
 // arguments to be run.
 int main() {
   char ** argv;
   int argc;
+
+  char ** cmdv = static_cast<char **>(malloc(MAX_CMDS * sizeof(char *)));
+  int cmdc = 0;
+  const char pipe[] = "|";
+
   wordexp_t p;
 
   Builtins builtins = Builtins();
@@ -40,7 +47,44 @@ int main() {
     }
 
     add_history(input);
-    wordexp(input, &p, 0);
+
+    // Parsing the pipes
+    // Try with  cat Builtin.cpp | grep Builtin
+    // The results should be stored in inputs
+    // strtok modfies the first input and leave only the first part before the pipe
+    // it allows at least the execution of the first part before we implement a real pipe
+    char ** cmd = cmdv;
+
+    *cmd = strtok(input, pipe);
+    while (*cmd != NULL) {
+      cmdc++;
+      ++(*cmd) = strtok(NULL, pipe);
+    }
+
+    cout << cmdc << " commands given" << endl;
+
+    // TODO: from there, maybe implement the rest of the parsing of the commands
+    // through a dedicated Executor object or so, that will allow us to make pipes
+    // and redirects
+
+    // TODO: maybe pass the WRDE_REUSE flag after the first iteration
+    int error = wordexp(input, &p, 0);
+    if (error != 0) {
+      // Parse here wordexp error to find issue
+      switch(error) {
+        case WRDE_NOSPACE:
+          cout << "wordexp(...): No space left for input allocation" << endl;
+          break;
+        case WRDE_BADCHAR:
+          cout << "wordexp(...): Illegal occurrence of newline or one of |, &, ;, <, >, (, ), {, }." << endl;
+          break;
+        default:
+          cout << "wordexp(...): An unhandled error happened, error code: " << error << endl;
+          break;
+      }
+      continue;
+    }
+
     argv = p.we_wordv;
     argc = p.we_wordc;
 
@@ -82,11 +126,17 @@ int main() {
       }
     }
 
+    // TODO: maybe remove this block, argv is a pointer to the wordexp_t
+    // structure which is managed by wordexp.
     // Reset the argv array for next time.
     for (int i=0; i<argc; i++) {
       argv[i] = NULL;
     }
+
+    cmdc = 0;
   }
+
+  free(cmdv);
 
   return 0;
 }
