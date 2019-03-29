@@ -7,6 +7,9 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <cstdlib>
+#include <readline/readline.h>
+#include <readline/history.h>
+#include <wordexp.h>
 
 using namespace std;
 
@@ -15,13 +18,12 @@ using namespace std;
 #include "Builtins.hpp"
 #include "Prompt.hpp"
 
-#define MAX_ARGS 64
-
 // Takes user input until they quit the shell, and passes that input as
 // arguments to be run.
 int main() {
-  char *argv[MAX_ARGS];
+  char ** argv;
   int argc;
+  wordexp_t p;
 
   Builtins builtins = Builtins();
   Prompt prompt = Prompt();
@@ -29,16 +31,21 @@ int main() {
   // Keep returning the user to the prompt ad infinitum unless they enter
   // 'quit' or 'exit' (without quotes).
   while (true) {
-    // Display a prompt.
-    cout << prompt.getText();
+    // Display a prompt and get a line
+    char * input = readline(prompt.getText().c_str());
 
-    // Read in a command from the user.
-    argc = read_args(argv);
+    // Go to the next iteration if nothing was input
+    if (input == NULL || !*input) {
+      continue;
+    }
 
-    // Implement here the parsing/execution logic
+    add_history(input);
+    wordexp(input, &p, 0);
+    argv = p.we_wordv;
+    argc = p.we_wordc;
 
-    // Conversion to C++ string for easier comparison
-    string prim = string(argv[0]);
+    vector<string> args = vector<string>(argv, argv + argc);
+    string prim = args.at(0);
 
     if (builtins.has(prim)) {
         builtins.exec(prim, vector<string>(argv + 1, argv + argc));
