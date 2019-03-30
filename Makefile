@@ -63,3 +63,6 @@ clean:
 
 depend: $(SRCS)
 	makedepend $(INCLUDES) $^
+
+install:
+	install -m 755 $(MAIN) /usr/bin
