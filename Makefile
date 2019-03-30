@@ -65,4 +65,4 @@ depend: $(SRCS)
 	makedepend $(INCLUDES) $^
 
 install:
-	install -m 755 $(MAIN) /usr/bin
+	install -m 755 $(MAIN) $(PKGDIR)/usr/bin
