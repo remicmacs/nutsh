@@ -53,7 +53,8 @@ int main() {
       ++(*cmd) = strtok(NULL, pipe);
     }
 
-    cout << cmdc << " commands given" << endl;
+    // DEBUG: remove after use
+    clog << cmdc << " commands given" << endl;
 
     // TODO: from there, maybe implement the rest of the parsing of the commands
     // through a dedicated Executor object or so, that will allow us to make pipes
