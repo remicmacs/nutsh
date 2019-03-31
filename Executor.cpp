@@ -21,7 +21,7 @@ Executor::Executor(char * cmd) {
 }
 
 int Executor::exec() {
-  if (!this->parse_error) {
+  if (this->parse_error) {
     return 1;
   }
 

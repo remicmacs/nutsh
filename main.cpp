@@ -1,15 +1,6 @@
 #include <iostream>
-#include <fstream>
-#include <sys/stat.h>
-#include <cerrno>
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <cstdlib>
 #include <readline/readline.h>
 #include <readline/history.h>
-#include <wordexp.h>
 
 using namespace std;
 
@@ -24,14 +15,9 @@ using namespace std;
 // Takes user input until they quit the shell, and passes that input as
 // arguments to be run.
 int main() {
-  char ** argv;
-  int argc;
-
   char ** cmdv = static_cast<char **>(malloc(MAX_CMDS * sizeof(char *)));
   int cmdc = 0;
   const char pipe[] = "|";
-
-  wordexp_t p;
 
   Builtins builtins = Builtins();
   Prompt prompt = Prompt();
