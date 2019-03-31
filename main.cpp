@@ -15,7 +15,7 @@ using namespace std;
 // Takes user input until they quit the shell, and passes that input as
 // arguments to be run.
 int main() {
-  char ** cmdv = static_cast<char **>(malloc(MAX_CMDS * sizeof(char *)));
+  char ** cmdv = new char*[MAX_CMDS];
   int cmdc = 0;
   const char pipe[] = "|";
 
@@ -29,8 +29,10 @@ int main() {
     char * input = readline(prompt.getText().c_str());
 
     // Go to the next iteration if nothing was input
-    if (input == NULL || !*input) {
+    if (input == NULL) {
       continue;
+    } else if (!*input) {
+      break;
     }
 
     add_history(input);
@@ -58,7 +60,7 @@ int main() {
     cmdc = 0;
   }
 
-  free(cmdv);
+  delete cmdv;
 
   return 0;
 }
