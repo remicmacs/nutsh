@@ -1,40 +1,20 @@
 #include "ExportBuiltin.hpp"
 
 void ExportBuiltin::exec_base() {
-    // TODO: Maybe factor code in a class to execute external commands?
-    // Export alone == `env`
-    // It's weird to do that
-    // TODO: `export -p` syntax == same as `env` but with `export` prefix on
-    // each key/value pair. Maybe do it properly without call to exec ?
-    // with environ(7)
-    if (this->get_args().empty()) {
-        // make a fork
-        pid_t pid = fork();
+    vector<string> args = this->get_args();
+    bool noargs = args.empty();
 
-        if (pid == -1 ) {
-            cerr << "Fork failed: " << strerror(errno) << endl;
-        } else if (pid == 0) { // inside the child
-            string env_cmd = "env";
-            char ** args = new char * [1];
-            char * env_cmd_c = new char[env_cmd.size()+1];
-            strcpy(env_cmd_c, env_cmd.c_str());
-            args[0] = env_cmd_c;
+    if (noargs || this->get_args().at(0) == "-p") {
 
-            int result = execvp(env_cmd_c, args);
+        // Setting output prefix according version of the command
+        string prefix = "";
+        if (!noargs) prefix = "export ";
 
-            // Executed only if execvp failed (mostly )
-            // DEBUG: temporary print
-            clog << "Process not replaced for some reason" << endl;
-            if (result == -1) {
-            cerr << "execvp() system call failed: " << strerror(errno) << endl;
-            exit(1);
-            }
-        } else { // parent of fork
-            int status;
-
-            waitpid(pid, &status, 0);
-
-            cout << WEXITSTATUS(status);
+        // Looping on environment variables
+        char * curr_env_var;
+        for (int i = 0; (curr_env_var = environ[i]) != NULL ; i++) {
+            string env_var_str = string(curr_env_var);
+            cout << prefix << env_var_str << endl;
         }
     } else { // Export Key=value pair
         string key;
