@@ -48,7 +48,8 @@ int main() {
       ++(*cmd) = strtok(NULL, pipe);
     }
 
-    cout << cmdc << " commands given" << endl;
+    // DEBUG: remove after use
+    clog << cmdc << " commands given" << endl;
 
     Executor executor = Executor(input);
     int status = executor.exec();

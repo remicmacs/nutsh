@@ -20,7 +20,7 @@ LIBS = -lstdc++fs -lreadline
 INCLUDES =
 
 # define the C source files
-SRCS = main.cpp Builtin.cpp CDBuiltin.cpp PWDBuiltin.cpp EchoBuiltin.cpp Builtins.cpp Prompt.cpp Executor.cpp
+SRCS = main.cpp Builtin.cpp CDBuiltin.cpp PWDBuiltin.cpp EchoBuiltin.cpp ExportBuiltin.cpp Builtins.cpp Prompt.cpp Executor.cpp
 
 # define the C object files
 #

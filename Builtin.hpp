@@ -41,7 +41,7 @@ class Builtin {
         void exec(string cmd, vector<string> args = vector<string>());
 
         /**
-         * Provide specific implementation of a builtin command.
+         * Specific implementation of a builtin command.
          *
          * When this command is executed, properties are required to be
          * initialized.
