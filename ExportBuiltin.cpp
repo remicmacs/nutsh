@@ -10,6 +10,7 @@ void ExportBuiltin::exec_base() {
         string prefix = "";
         if (!noargs) prefix = "export ";
 
+        extern char ** environ;
         // Looping on environment variables
         char * curr_env_var;
         for (int i = 0; (curr_env_var = environ[i]) != NULL ; i++) {
