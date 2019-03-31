@@ -30,9 +30,9 @@ int main() {
 
     // Go to the next iteration if nothing was input
     if (input == NULL) {
-      continue;
-    } else if (!*input) {
       break;
+    } else if (!*input) {
+      continue;
     }
 
     add_history(input);
