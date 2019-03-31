@@ -15,9 +15,13 @@ using namespace std;
 
 // Takes user input until they quit the shell, and passes that input as
 // arguments to be run.
-int main() {
-  char ** argv;
-  int argc;
+int main(int argc, char ** argv) {
+
+  if (argc > 1) {
+    char * filename = argv[1];
+    freopen(filename, "r", stdin);
+  }
+
 
   char ** cmdv = static_cast<char **>(malloc(MAX_CMDS * sizeof(char *)));
   int cmdc = 0;
@@ -33,9 +37,11 @@ int main() {
   while (true) {
     // Display a prompt and get a line
     char * input = readline(prompt.getText().c_str());
-
     // Go to the next iteration if nothing was input
-    if (input == NULL || !*input) {
+    if (input == NULL) {
+      delete cmdv;
+      exit(0);
+    } else if (!*input) {
       continue;
     }
 
