@@ -3,6 +3,7 @@ nutsh
 
 # VS Code shit
 .vscode/
+*.code-workspace
 
 # Exclude pdf
 *.pdf

@@ -6,6 +6,7 @@ void ExportBuiltin::exec_base() {
     // It's weird to do that
     // TODO: `export -p` syntax == same as `env` but with `export` prefix on
     // each key/value pair. Maybe do it properly without call to exec ?
+    // with environ(7)
     if (this->get_args().empty()) {
         // make a fork
         pid_t pid = fork();
