@@ -19,7 +19,7 @@ int main() {
   char ** argv;
   int argc;
 
-  char ** cmdv = static_cast<char **>(malloc(MAX_CMDS * sizeof(char *)));
+  char ** cmdv = new char*[MAX_CMDS];
   int cmdc = 0;
   const char pipe[] = "|";
 
@@ -130,7 +130,7 @@ int main() {
     cmdc = 0;
   }
 
-  free(cmdv);
+  delete cmdv;
 
   return 0;
 }
