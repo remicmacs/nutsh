@@ -1,12 +1,5 @@
 #include <iostream>
-#include <fstream>
-#include <sys/stat.h>
-#include <cerrno>
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/types.h>
 #include <sys/wait.h>
-#include <cstdlib>
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <wordexp.h>
@@ -61,7 +54,8 @@ int main() {
       ++(*cmd) = strtok(NULL, pipe);
     }
 
-    cout << cmdc << " commands given" << endl;
+    // DEBUG: remove after use
+    clog << cmdc << " commands given" << endl;
 
     // TODO: from there, maybe implement the rest of the parsing of the commands
     // through a dedicated Executor object or so, that will allow us to make pipes
