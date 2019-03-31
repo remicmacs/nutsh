@@ -39,8 +39,7 @@ int main(int argc, char ** argv) {
     char * input = readline(prompt.getText().c_str());
     // Go to the next iteration if nothing was input
     if (input == NULL) {
-      delete cmdv;
-      exit(0);
+      break;
     } else if (!*input) {
       continue;
     }
