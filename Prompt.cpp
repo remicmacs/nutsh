@@ -18,6 +18,18 @@ string Prompt::getText() {
         pwd.replace(0, home.length(), "~");
     }
 
+    string fragment;
+    istringstream tokenStream(pwd);
+    string new_pwd = "";
+    while (getline(tokenStream, fragment, '/')) {
+        if (fragment.length() > 6) {
+            fragment = fragment.substr(0, 3) + "...";
+        }
+        new_pwd += fragment + "/";
+    }
+
+    pwd = new_pwd.substr(0, new_pwd.length() - 1);
+
     // Build the user string
     // \033[48;5;124m\033[38;5;232m is red background and black foreground
     // \033[38;5;196m is red foreground
