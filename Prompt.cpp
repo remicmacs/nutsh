@@ -13,6 +13,10 @@ string Prompt::getText() {
 
     // Build the path string
     string pwd = current_path();
+    string home = getenv("HOME");
+    if (pwd.find(home, 0) == 0) {
+        pwd.replace(0, home.length(), "~");
+    }
 
     // Build the user string
     // \033[48;5;124m\033[38;5;232m is red background and black foreground
