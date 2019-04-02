@@ -1,4 +1,5 @@
 #include "Prompt.hpp"
+#include "Executor.hpp"
 
 #ifndef HOST_NAME_MAX
 #define HOST_NAME_MAX 64
@@ -46,6 +47,11 @@ string Prompt::getText() {
     char hostArray[HOST_NAME_MAX];
     int hostError = gethostname(hostArray, HOST_NAME_MAX);
     string hostname = hostError != 0 ? "HOST" : string(hostArray);
+
+    // TODO: Get the git status
+    // Idea : use fmemopen to create a file pointer to a string
+    // so we can use the future feature of pipe/redirect of the executor
+    // to dump the output of git status -s into a string (actually a char *)
 
     // Build the prompt
     // Comma-first notation
