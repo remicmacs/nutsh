@@ -35,7 +35,7 @@ string Prompt::getText() {
     // \033[48;5;124m\033[38;5;232m is red background and black foreground
     // \033[38;5;196m is red foreground
     // \033[0;1m resets (0) and set the prompt to bold (1)
-    string user(cuserid(NULL));
+    string user(getpwuid(geteuid())->pw_name);
     string userColor = user == "root" ? "\033[48;5;124m\033[38;5;232m " : "\033[38;5;196m";
     user = user == "root" ? user + " \033[0;1m" : user;
 

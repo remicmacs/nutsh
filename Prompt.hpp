@@ -5,6 +5,7 @@
 #include <climits>
 #include <unistd.h>
 #include <filesystem>
+#include <pwd.h>
 
 using namespace std;
 using namespace filesystem;
