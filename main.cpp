@@ -1,13 +1,12 @@
 #include <iostream>
-#include <sys/wait.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-#include <wordexp.h>
 
 using namespace std;
 
 #include "Builtins.hpp"
 #include "Prompt.hpp"
+#include "Executor.hpp"
 
 #ifndef MAX_CMDS
 #define MAX_CMDS 16
@@ -22,12 +21,9 @@ int main(int argc, char ** argv) {
     freopen(filename, "r", stdin);
   }
 
-
-  char ** cmdv = static_cast<char **>(malloc(MAX_CMDS * sizeof(char *)));
+  char ** cmdv = new char*[MAX_CMDS];
   int cmdc = 0;
   const char pipe[] = "|";
-
-  wordexp_t p;
 
   Builtins builtins = Builtins();
   Prompt prompt = Prompt();
@@ -62,80 +58,14 @@ int main(int argc, char ** argv) {
     // DEBUG: remove after use
     clog << cmdc << " commands given" << endl;
 
-    // TODO: from there, maybe implement the rest of the parsing of the commands
-    // through a dedicated Executor object or so, that will allow us to make pipes
-    // and redirects
-
-    // TODO: maybe pass the WRDE_REUSE flag after the first iteration
-    int error = wordexp(input, &p, 0);
-    if (error != 0) {
-      // Parse here wordexp error to find issue
-      switch(error) {
-        case WRDE_NOSPACE:
-          cout << "wordexp(...): No space left for input allocation" << endl;
-          break;
-        case WRDE_BADCHAR:
-          cout << "wordexp(...): Illegal occurrence of newline or one of |, &, ;, <, >, (, ), {, }." << endl;
-          break;
-        default:
-          cout << "wordexp(...): An unhandled error happened, error code: " << error << endl;
-          break;
-      }
-      continue;
-    }
-
-    argv = p.we_wordv;
-    argc = p.we_wordc;
-
-    vector<string> args = vector<string>(argv, argv + argc);
-    string prim = args.at(0);
-
-    if (builtins.has(prim)) {
-        builtins.exec(prim, vector<string>(argv + 1, argv + argc));
-    } else if (prim == "exit") {
-      exit(0);
-    } else {
-      // make a fork
-      pid_t pid = fork();
-
-      if (pid == -1 ) {
-        cerr << "Fork failed: " << strerror(errno) << endl;
-      } else if (pid == 0) { // inside the child
-        int result = execvp(argv[0], argv);
-
-        // Executed only if execvp failed (mostly )
-        // FIXME: reached this after a `hexdump nutsh` but the filename `nutsh`
-        // had been written after inserting a tab by mistake and deleting it // // with backspace.
-        // `execvp() system call failed: No such file or directory`
-        // Is it reproducible ?
-        // DEBUG: temporary print
-        clog << "Process not replaced for some reason" << endl;
-        if (result == -1) {
-          cerr << "execvp() system call failed: " << strerror(errno) << endl;
-          exit(1);
-        }
-      } else { // parent of fork
-        int status;
-
-        // TODO: manage background vs foreground
-        waitpid(pid, &status, 0);
-
-        // Give the status code to the shell
-        prompt.setPreviousReturn(WEXITSTATUS(status));
-      }
-    }
-
-    // TODO: maybe remove this block, argv is a pointer to the wordexp_t
-    // structure which is managed by wordexp.
-    // Reset the argv array for next time.
-    for (int i=0; i<argc; i++) {
-      argv[i] = NULL;
-    }
+    Executor executor = Executor(input);
+    int status = executor.exec();
+    prompt.setPreviousReturn(status);
 
     cmdc = 0;
   }
 
-  free(cmdv);
+  delete cmdv;
 
   return 0;
 }
