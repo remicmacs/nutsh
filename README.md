@@ -1,21 +1,39 @@
 # nutsh
 
-[![Build Status](https://travis-ci.com/remicmacs/nutsh.svg?branch=master)](https://travis-ci.com/remicmacs/nutsh)
+[![Build Status](https://img.shields.io/travis/com/remicmacs/nutsh/master.svg?style=for-the-badge&logo=travis)](https://travis-ci.com/remicmacs/nutsh) ![Made with C++](https://img.shields.io/badge/Made%20with-C++-C1282D.svg?style=for-the-badge&labelColor=EF4041) ![Works on my machine](https://img.shields.io/badge/Works-on%20my%20machine-5593C7.svg?style=for-the-badge&labelColor=A7BFC1) ![License CRAPL](https://img.shields.io/badge/License-CRAPL-1C1C1D.svg?style=for-the-badge&labelColor=B0AEAF) ![Built for Linux](https://img.shields.io/badge/Built%20for-Linux-C13D3B.svg?style=for-the-badge&labelColor=EA4761&logo=linux&logoColor=FFFFFF) ![Built for MacOSX](https://img.shields.io/badge/Built%20for-MacOSX-C13D3B.svg?style=for-the-badge&labelColor=EA4761&logo=apple&logoColor=FFFFFF)
 
-Pronounced "nutshell" (/ˈnʌtʃel/)
+Pronounced *« nutshell »* (/ˈnʌtʃel/)
 
-## Features
+- [:sparkles: Features](#sparkles-features)
+- [:checkered_flag: Getting started](#checkered_flag-getting-started)
+  - [:package: Build dependencies](#package-build-dependencies)
+  - [:clown_face: `make` for dummies](#clown_face-make-for-dummies)
+- [:gear: Builtin commands](#gear-builtin-commands)
+- [:mailbox: Contact us](#mailbox-contact-us)
 
-nutsh is **barely usable** ! Enjoy using your system **the hard way** ! With nutsh, become a truly hardcore Linux guru ! After all if it's painless, is it really worth it ? (*hint*: it's not)
+[![Asciinema](res/asciinema.gif)](https://asciinema.org/a/RDZOFZoycUhqoW25VII5tl6AX)
 
-## Getting started
+## :sparkles: Features
 
-### Build dependencies
+nutsh is **barely usable** ! Enjoy using your system **the hard way** ! With nutsh, become a truly hardcore Linux guru ! After all if it's painless, is it really worth it ? (*hint*: it's not).
+
+Here is some of the most notable features :
+
+* Command history
+* File autocompletion
+* Command expansion
+* Cool name
+
+## :checkered_flag: Getting started
+
+A build script is [available for Arch Linux](https://github.com/rodolpheh/nutsh-pkgbuild/). For any other cases, please follow the instructions below.
+
+### :package: Build dependencies
 
 * `make`
 * `g++`
 
-### `make` for dummies
+### :clown_face: `make` for dummies
 
 1. Clone the repo
 
@@ -30,19 +48,21 @@ nutsh is **barely usable** ! Enjoy using your system **the hard way** ! With nut
     ```
 
 3. Build the shell with `make`
-4. *Voilà* !!
+4. *Voilà* !! :tada:
 
-## Builtin commands
+## :gear: Builtin commands
 
 Here is a list of shell builtin commands implemented in nutsh.
 
-| Command name | Takes arguments | Status |
-|--------|-----|-----|
-| `cd`   | yes | yes |
-| `pwd`  | no  | yes |
-| `jobs` | yes | no  |
+| Command name | Takes arguments    | Has options | Status             |
+| ------------ | ------------------ | ----------- | ------------------ |
+| `cd`         | :heavy_check_mark: | :x:         | :heavy_check_mark: |
+| `pwd`        | :x:                | :x:         | :heavy_check_mark: |
+| `exit`       | :x:                | :x:         | :heavy_check_mark: |
+| `echo`       | :heavy_check_mark: | :x:         | :heavy_check_mark: |
+| `jobs`       | :heavy_check_mark: | :x:         | :x:                |
 
-## Contact us
+## :mailbox: Contact us
 
 You can get in touch with the dev team in a really straightforward way :
 
