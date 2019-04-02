@@ -3,13 +3,15 @@
 
 #include <string>
 #include <vector>
-#include <algorithm>
+#include <map>
 
 #include "Builtin.hpp"
 #include "CDBuiltin.hpp"
 #include "PWDBuiltin.hpp"
 #include "EchoBuiltin.hpp"
+#include "ExportBuiltin.hpp"
 
+using namespace std;
 /**
  *  A store for builtin commands.
  *
@@ -18,13 +20,11 @@
  */
 class Builtins {
     private:
-        CDBuiltin * cd;
-        PWDBuiltin * pwd;
-        EchoBuiltin * echo;
-        vector<string> builtins {
-            "cd",
-            "pwd",
-            "echo"
+        map<string, Builtin *> builtins {
+            make_pair ("cd", new CDBuiltin()),
+            make_pair ("pwd", new PWDBuiltin()),
+            make_pair ("echo", new EchoBuiltin()),
+            make_pair ("export", new ExportBuiltin())
         };
 
         void exec(Builtin* builtin, vector<string>args);
