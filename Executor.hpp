@@ -18,12 +18,14 @@ class Executor{
     int argc = 0;
 
     bool is_valid = false;
+    bool is_bg;
     int parse_error = 0;
 
     // TODO : remove this when the builtins are made static
     Builtins builtins = Builtins();
   public:
-    Executor(char * cmd);
+    Executor(char * cmd) : Executor(cmd, false) {};
+    Executor(char * cmd, bool is_bg);
     int exec();
 };
 

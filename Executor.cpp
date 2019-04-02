@@ -1,6 +1,7 @@
 #include "Executor.hpp"
 
-Executor::Executor(char * cmd) {
+Executor::Executor(char * cmd, bool is_bg) {
+  this->is_bg = is_bg;
   this->parse_error = wordexp(cmd, &(this->p), 0);
 
   switch(this->parse_error) {
@@ -57,8 +58,10 @@ int Executor::exec() {
       }
     } else { // parent of fork
       // TODO: manage background vs foreground
-      waitpid(pid, &status, 0);
-      status = WEXITSTATUS(status);
+      if (!this->is_bg) {
+        waitpid(pid, &status, 0);
+        status = WEXITSTATUS(status);
+      } // else not waiting on it
     }
   }
 
