@@ -60,6 +60,7 @@ Here is a list of shell builtin commands implemented in nutsh.
 | `pwd`        | :x:                | :x:         | :heavy_check_mark: |
 | `exit`       | :x:                | :x:         | :heavy_check_mark: |
 | `echo`       | :heavy_check_mark: | :x:         | :heavy_check_mark: |
+| `type`       | :x:                | :x:         | :heavy_check_mark: |
 | `jobs`       | :heavy_check_mark: | :x:         | :x:                |
 
 ## :mailbox: Contact us
