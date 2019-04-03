@@ -4,14 +4,10 @@
 #include "Builtin.hpp"
 
 
-#include <sys/types.h> 
 #include <sys/stat.h> 
-#include <time.h> 
 #include <stdio.h> 
 #include <stdlib.h> 
-#include <sys/sysmacros.h>
 #include <unistd.h>
-
 #include <cstring>
 #include <iostream>
 #include <climits>
