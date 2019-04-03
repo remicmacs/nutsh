@@ -10,6 +10,8 @@
 #include "PWDBuiltin.hpp"
 #include "EchoBuiltin.hpp"
 #include "ExportBuiltin.hpp"
+#include "TypeBuiltin.hpp"
+
 
 using namespace std;
 /**
@@ -23,8 +25,9 @@ class Builtins {
         map<string, Builtin *> builtins {
             make_pair ("cd", new CDBuiltin()),
             make_pair ("pwd", new PWDBuiltin()),
-            make_pair ("echo", new EchoBuiltin()),
-            make_pair ("export", new ExportBuiltin())
+            make_pair ("echo", new EchoBuiltin()), 
+            make_pair ("export", new ExportBuiltin()),
+            make_pair ("type", new TypeBuiltin())
         };
 
         void exec(Builtin* builtin, vector<string>args);
