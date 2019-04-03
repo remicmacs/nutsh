@@ -51,14 +51,15 @@ int Executor::exec() {
     // make a fork
     pid_t pid = fork();
 
-    //signal handling
+    //signal handling only if process is not in background
+    if (!this->is_bg) {
     actual_pid = pid;
     struct sigaction sigIntHandler;
     sigIntHandler.sa_handler = signal_handler;
     sigemptyset(&sigIntHandler.sa_mask);
     sigIntHandler.sa_flags = 0;
     sigaction(SIGINT, &sigIntHandler, NULL);
-    
+    }
 
 
     if (pid == -1 ) {
@@ -66,8 +67,6 @@ int Executor::exec() {
       status = errno;
     } else if (pid == 0) { // inside the child
       int result = execvp(argv[0], argv);
-
-    
 
 
       // Executed only if execvp failed (mostly )
@@ -86,6 +85,7 @@ int Executor::exec() {
       if (!this->is_bg) {
         waitpid(pid, &status, 0);
         status = WEXITSTATUS(status);
+        actual_pid = getpid(); // When proccess is done reset the pid
       } // else not waiting on it
     }
   }
