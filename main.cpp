@@ -19,41 +19,38 @@ int main(int argc, char ** argv) {
   if (argc == 2) {
     char * filename = argv[1];
     freopen(filename, "r", stdin);
-  } else {
-    string exec_flag = string(argv[1]);
-    if (argc == 3 && string(argv[1]) == "-c") {
-      // Display a prompt and get a line
-      char * input = argv[2];
+  } else if (argc == 3 && string(argv[1]) == "-c"){
+    char * input = argv[2];
 
-      wordexp_t p;
-      int parse_error = wordexp(input, &p, 0);
+    wordexp_t p;
+    int parse_error = wordexp(input, &p, 0);
 
-      if (parse_error) {
-        return 1;
-      }
-
-      int status = 0;
-
-      vector<string> args = vector<string>(p.we_wordv, p.we_wordv + p.we_wordc);
-      string prim = args[0];
-
-      Builtins builtins = Builtins();
-
-      if (builtins.has(prim)) {
-        builtins.exec(prim, vector<string>(args.begin() + 1, args.end()));
-      } else if (prim == "exit") {
-        exit(0);
-      } else {
-        int result = execvp(p.we_wordv[0], p.we_wordv);
-        // DEBUG: temporary print
-        clog << "Process not replaced for some reason" << endl;
-        if (result == -1) {
-          cerr << "execvp() system call failed: " << strerror(errno) << endl;
-          exit(1);
-        }
-      }
-      exit(status);
+    if (parse_error) {
+      return 1;
     }
+
+    int status = 0;
+
+    // Test if command is builtin primitive
+    vector<string> args = vector<string>(p.we_wordv, p.we_wordv + p.we_wordc);
+    string prim = args[0];
+
+    Builtins builtins = Builtins();
+
+    if (builtins.has(prim)) {
+      builtins.exec(prim, vector<string>(args.begin() + 1, args.end()));
+    } else if (prim == "exit") {
+      exit(0);
+    } else { // Exec without fork != Executor
+      int result = execvp(p.we_wordv[0], p.we_wordv);
+      // DEBUG: temporary print
+      clog << "Process not replaced for some reason" << endl;
+      if (result == -1) {
+        cerr << "execvp() system call failed: " << strerror(errno) << endl;
+        exit(1);
+      }
+    }
+    exit(status);
   }
 
   char ** cmdv = new char*[MAX_CMDS];
