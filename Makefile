@@ -66,3 +66,6 @@ depend: $(SRCS)
 
 install:
 	install -m 755 $(MAIN) $(PKGDIR)/usr/bin
+
+debug: $(OBJS)
+	$(CXX) $(CFLAGS) -g $(INCLUDES) -o $(MAIN) $(OBJS) $(LFLAGS) $(LIBS)

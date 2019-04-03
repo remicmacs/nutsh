@@ -1,25 +1,9 @@
 #include "Executor.hpp"
 
-Executor::Executor(char * cmd, Executor * next, Executor * previous) {
-  // Create a pipe if either next or previous exists
-  if (this->next != nullptr && this->previous != nullptr) {
-    pipe(fds);
-
-    // If there is no next, we can close the output
-    if (this->next != nullptr) {
-      dup2(this->fds[0], 0);
-    } else {
-      close(this->fds[1]);
-    }
-
-    // If there is no previous, we can close the input
-    if (this->previous != nullptr) {
-      dup2(this->fds[1], 1);
-    } else {
-      close(this->fds[0]);
-    }
-  }
-
+Executor::Executor(char * cmd, Executor * next, Executor * previous, bool is_bg) {
+  this->next = next;
+  this->previous = previous;
+  this->is_bg = is_bg;
   this->parse_error = wordexp(cmd, &(this->p), 0);
 
   switch(this->parse_error) {
@@ -61,6 +45,26 @@ int Executor::exec() {
       cerr << "Fork failed: " << strerror(errno) << endl;
       status = errno;
     } else if (pid == 0) { // inside the child
+    
+      /*if (this->next != nullptr && this->previous != nullptr) {
+        cout << "Coming through !" << endl;
+        pipe(fds);
+
+        // If there is no next, we can close the output
+        if (this->next != nullptr) {
+          dup2(this->fds[0], 0);
+        } else {
+          close(this->fds[1]);
+        }
+
+        // If there is no previous, we can close the input
+        if (this->previous != nullptr) {
+          dup2(this->fds[1], 1);
+        } else {
+          close(this->fds[0]);
+        }
+      }*/
+
       int result = execvp(argv[0], argv);
 
       // Executed only if execvp failed (mostly )
@@ -76,10 +80,20 @@ int Executor::exec() {
       }
     } else { // parent of fork
       // TODO: manage background vs foreground
-      waitpid(pid, &status, 0);
-      status = WEXITSTATUS(status);
+      if (!this->is_bg) {
+        waitpid(pid, &status, 0);
+        status = WEXITSTATUS(status);
+      } // else not waiting on it
     }
   }
 
   return status;
+}
+
+void Executor::set_next(Executor * next) {
+  this->next = next;
+}
+
+void Executor::set_previous(Executor * previous) {
+  this->previous = previous;
 }
