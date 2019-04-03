@@ -5,6 +5,8 @@
 #include <wordexp.h>
 #include <iostream>
 #include <vector>
+#include <signal.h>
+
 #include <sys/wait.h>
 
 #include "Builtins.hpp"
@@ -41,6 +43,8 @@ class Executor{
     void set_next(Executor * next);
     void set_previous(Executor * previous);
 };
+
+  void signal_handler(int s);
 
 
 #endif
