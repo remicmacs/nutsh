@@ -47,12 +47,12 @@ int main(int argc, char ** argv) {
     // The results should be stored in inputs
     // strtok modfies the first input and leave only the first part before the pipe
     // it allows at least the execution of the first part before we implement a real pipe
-    char ** cmd = cmdv;
+    char ** cmds = cmdv;
 
-    *cmd = strtok(input, pipe);
-    while (*cmd != NULL) {
+    *cmds = strtok(input, pipe);
+    while (*cmds != NULL) {
       cmdc++;
-      ++(*cmd) = strtok(NULL, pipe);
+      ++(*cmds) = strtok(NULL, pipe);
     }
 
     // Testing if bg job required
@@ -70,7 +70,29 @@ int main(int argc, char ** argv) {
     }
 
     // DEBUG: remove after use
-    clog << cmdc << " commands given" << endl;
+    cout << cmdc << " commands given" << endl;
+    cout << cmdv[0] << endl;
+    cout.flush();
+
+    /*vector<Executor *> executors = vector<Executor *>();
+
+    for (int index = 0; index < cmdc; index++) {
+      char * cmd = *(cmdv + index);
+      cout << cmd << endl;
+      executors.push_back(new Executor(cmd));
+    }
+
+    for (unsigned int index = 0; index < executors.size(); index++) {
+      if (index > 0) {
+        executors[index]->set_previous(executors[index - 1]);
+      }
+
+      if (index < executors.size() - 1) {
+        executors[index]->set_next(executors[index + 1]);
+      }
+
+      cout << executors.size() << endl;
+    }*/
 
     Executor executor = Executor(stripped_input, is_bg);
     int status = executor.exec();
