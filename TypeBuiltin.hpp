@@ -27,11 +27,12 @@ class TypeBuiltin : public Builtin {
     public:
         TypeBuiltin() : Builtin() {};
         void exec_base();
-        
+        bool is_builtin(string target);
+        bool is_executable(struct stat sb, string target);
+        void target_infos(struct stat sb);
+       
 };
 
-template<char delimiter>
-class WordDelimitedBy : public std::string
-{};
+
 
 #endif
