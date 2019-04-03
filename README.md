@@ -1,15 +1,16 @@
 # nutsh
 
-[![Build Status](https://img.shields.io/travis/com/remicmacs/nutsh/master.svg?style=for-the-badge&logo=travis)](https://travis-ci.com/remicmacs/nutsh) ![Made with C++](https://img.shields.io/badge/Made%20with-C++-C1282D.svg?style=for-the-badge&labelColor=EF4041) ![Works on my machine](https://img.shields.io/badge/Works-on%20my%20machine-5593C7.svg?style=for-the-badge&labelColor=A7BFC1) ![License CRAPL](https://img.shields.io/badge/License-CRAPL-1C1C1D.svg?style=for-the-badge&labelColor=B0AEAF) ![Built for Linux](https://img.shields.io/badge/Built%20for-Linux-C13D3B.svg?style=for-the-badge&labelColor=EA4761&logo=linux&logoColor=FFFFFF) ![Built for MacOSX](https://img.shields.io/badge/Built%20for-MacOSX-C13D3B.svg?style=for-the-badge&labelColor=EA4761&logo=apple&logoColor=FFFFFF)
+[![Build Status](https://img.shields.io/travis/com/remicmacs/nutsh/master.svg?style=for-the-badge&logo=travis)](https://travis-ci.com/remicmacs/nutsh) ![Made with C++](https://img.shields.io/badge/Made%20with-C++-C1282D.svg?style=for-the-badge&labelColor=EF4041) ![Works on my machine](https://img.shields.io/badge/Works-on%20my%20machine-5593C7.svg?style=for-the-badge&labelColor=A7BFC1) [![License CRAPL](https://img.shields.io/badge/License-CRAPL-1C1C1D.svg?style=for-the-badge&labelColor=B0AEAF)](CRAPL-LICENSE.txt) ![Built for Linux](https://img.shields.io/badge/Built%20for-Linux-C13D3B.svg?style=for-the-badge&labelColor=EA4761&logo=linux&logoColor=FFFFFF) ![Built for MacOSX](https://img.shields.io/badge/Built%20for-MacOSX-C13D3B.svg?style=for-the-badge&labelColor=EA4761&logo=apple&logoColor=FFFFFF)
 
 Pronounced *« nutshell »* (/ˈnʌtʃel/)
 
-- [:sparkles: Features](#sparkles-features)
-- [:checkered_flag: Getting started](#checkered_flag-getting-started)
-  - [:package: Build dependencies](#package-build-dependencies)
-  - [:clown_face: `make` for dummies](#clown_face-make-for-dummies)
-- [:gear: Builtin commands](#gear-builtin-commands)
-- [:mailbox: Contact us](#mailbox-contact-us)
+- [nutsh](#nutsh)
+  - [:sparkles: Features](#sparkles-features)
+  - [:checkered_flag: Getting started](#checkeredflag-getting-started)
+    - [:package: Build dependencies](#package-build-dependencies)
+    - [:clown_face: `make` for dummies](#clownface-make-for-dummies)
+  - [:gear: Builtin commands](#gear-builtin-commands)
+  - [:mailbox: Contact us](#mailbox-contact-us)
 
 [![Asciinema](res/asciinema.gif)](https://asciinema.org/a/RDZOFZoycUhqoW25VII5tl6AX)
 
