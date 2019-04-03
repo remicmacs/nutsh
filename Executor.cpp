@@ -1,6 +1,25 @@
 #include "Executor.hpp"
 
-Executor::Executor(char * cmd) {
+Executor::Executor(char * cmd, Executor * next, Executor * previous) {
+  // Create a pipe if either next or previous exists
+  if (this->next != nullptr && this->previous != nullptr) {
+    pipe(fds);
+
+    // If there is no next, we can close the output
+    if (this->next != nullptr) {
+      dup2(this->fds[0], 0);
+    } else {
+      close(this->fds[1]);
+    }
+
+    // If there is no previous, we can close the input
+    if (this->previous != nullptr) {
+      dup2(this->fds[1], 1);
+    } else {
+      close(this->fds[0]);
+    }
+  }
+
   this->parse_error = wordexp(cmd, &(this->p), 0);
 
   switch(this->parse_error) {
