@@ -47,12 +47,12 @@ int main(int argc, char ** argv) {
     // The results should be stored in inputs
     // strtok modfies the first input and leave only the first part before the pipe
     // it allows at least the execution of the first part before we implement a real pipe
-    char ** cmd = cmdv;
+    char ** cmds = cmdv;
 
-    *cmd = strtok(input, pipe);
-    while (*cmd != NULL) {
+    *cmds = strtok(input, pipe);
+    while (*cmds != NULL) {
       cmdc++;
-      ++(*cmd) = strtok(NULL, pipe);
+      *(++cmds) = strtok(NULL, pipe);
     }
 
     // Testing if bg job required
@@ -69,11 +69,28 @@ int main(int argc, char ** argv) {
       stripped_input = input;
     }
 
-    // DEBUG: remove after use
-    clog << cmdc << " commands given" << endl;
+    vector<Executor *> executors = vector<Executor *>();
 
-    Executor executor = Executor(stripped_input, is_bg);
-    int status = executor.exec();
+    // Create one executor for each part of the piped command
+    for (int index = 0; index < cmdc; index++) {
+      char * cmd = *(cmdv + index);
+      executors.push_back(new Executor(cmd));
+    }
+
+    // Build the chained executors
+    for (unsigned int index = 0; index < executors.size(); index++) {
+      if (index > 0) {
+        executors[index]->set_previous(executors[index - 1]);
+      }
+
+      if (index < executors.size() - 1) {
+        executors[index]->set_next(executors[index + 1]);
+      }
+    }
+
+    // Execute the last one, it will chain the pipes from the last
+    // to the first one while launching the processes
+    int status = executors.back()->exec();
     prompt.setPreviousReturn(status);
 
     cmdc = 0;
