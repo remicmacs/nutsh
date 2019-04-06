@@ -9,6 +9,19 @@
 // https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
 // Just change 'ESC' with '\033'
 
+string Prompt::white = Prompt::escape("\033[37m");
+string Prompt::orange = Prompt::escape("\033[38;5;214m");
+string Prompt::green = Prompt::escape("\033[38;5;76m");
+string Prompt::red = Prompt::escape("\033[38;5;196m");
+string Prompt::reverse_red = Prompt::escape("\033[48;5;124m\033[38;5;232m");
+string Prompt::dark_red = Prompt::escape("\033[38;5;160m");
+string Prompt::reset = Prompt::escape("\033[0m");
+string Prompt::bold = Prompt::escape("\033[1m");
+
+string Prompt::escape(string to_decorate) {
+    return PROMP_START_IGNORE + to_decorate + PROMPT_END_IGNORE;
+}
+
 string Prompt::getText() {
     char * tmp;
 
@@ -32,16 +45,12 @@ string Prompt::getText() {
     pwd = new_pwd.substr(0, new_pwd.length() - 1);
 
     // Build the user string
-    // \033[48;5;124m\033[38;5;232m is red background and black foreground
-    // \033[38;5;196m is red foreground
-    // \033[0;1m resets (0) and set the prompt to bold (1)
     string user(getpwuid(geteuid())->pw_name);
-    string userColor = user == "root" ? "\033[48;5;124m\033[38;5;232m " : "\033[38;5;196m";
-    user = user == "root" ? user + " \033[0;1m" : user;
+    string userColor = user == "root" ? Prompt::reverse_red + " " : Prompt::red;
+    user = user == "root" ? user + " " + Prompt::reset + Prompt::bold : user;
 
     // Add an indicator in case of an error in the previous process
-    // \033[38;5;160m dark red foreground
-    string previousView = previousReturn == 0 ? "" : "\033[38;5;160mX ";
+    string previousView = previousReturn == 0 ? "" : Prompt::dark_red + "X ";
 
     // Build the hostname
     char hostArray[HOST_NAME_MAX];
@@ -55,14 +64,14 @@ string Prompt::getText() {
 
     // Build the prompt
     // Comma-first notation
-    string prompt = "\033[1m" + previousView
+    string prompt = Prompt::bold + previousView
         + userColor + user 
-        + "\033[37m" + " at " 
-        + "\033[38;5;214m" + hostname 
-        + "\033[37m" + " in " 
-        + "\033[38;5;76m" + pwd
-        + "\033[37m" + " > "
-        + "\033[0m"
+        + Prompt::white + " at " 
+        + Prompt::orange + hostname 
+        + Prompt::white + " in " 
+        + Prompt::green + pwd
+        + Prompt::white + " > "
+        + Prompt::reset
         ;
     
     return prompt;
