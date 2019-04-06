@@ -52,7 +52,7 @@ int main(int argc, char ** argv) {
     *cmds = strtok(input, pipe);
     while (*cmds != NULL) {
       cmdc++;
-      ++(*cmds) = strtok(NULL, pipe);
+      *(++cmds) = strtok(NULL, pipe);
     }
 
     // Testing if bg job required
@@ -69,19 +69,15 @@ int main(int argc, char ** argv) {
       stripped_input = input;
     }
 
-    // DEBUG: remove after use
-    cout << cmdc << " commands given" << endl;
-    cout << cmdv[0] << endl;
-    cout.flush();
+    vector<Executor *> executors = vector<Executor *>();
 
-    /*vector<Executor *> executors = vector<Executor *>();
-
+    // Create one executor for each part of the piped command
     for (int index = 0; index < cmdc; index++) {
       char * cmd = *(cmdv + index);
-      cout << cmd << endl;
       executors.push_back(new Executor(cmd));
     }
 
+    // Build the chained executors
     for (unsigned int index = 0; index < executors.size(); index++) {
       if (index > 0) {
         executors[index]->set_previous(executors[index - 1]);
@@ -90,12 +86,11 @@ int main(int argc, char ** argv) {
       if (index < executors.size() - 1) {
         executors[index]->set_next(executors[index + 1]);
       }
+    }
 
-      cout << executors.size() << endl;
-    }*/
-
-    Executor executor = Executor(stripped_input, is_bg);
-    int status = executor.exec();
+    // Execute the last one, it will chain the pipes from the last
+    // to the first one while launching the processes
+    int status = executors.back()->exec();
     prompt.setPreviousReturn(status);
 
     cmdc = 0;
