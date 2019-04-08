@@ -1,0 +1,13 @@
+Cahier*
+res/
+*.cast
+travis.yml
+.gitignore
+Dockerfile
+doxygenrc
+logo*
+nutsh
+*.code-workspace
+specifications.md
+.vscode/
+.git/

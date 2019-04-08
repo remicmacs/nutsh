@@ -1,18 +1,17 @@
 FROM alpine:latest
 
-RUN apk update
-RUN apk add build-base
-RUN apk add readline-dev
-RUN apk add tree
-RUN apk add curl
+RUN mkdir /tmp/nutsh
+WORKDIR /tmp/nutsh
 
-WORKDIR /tmp
-
-RUN mkdir nutsh && cd nutsh
 COPY . .
-RUN make && cp nutsh /usr/bin/nutsh
 
-RUN adduser -S user
+RUN apk --no-cache update \
+ && apk --no-cache add build-base libstdc++ gcc readline readline-dev \
+ && make \
+ && cp nutsh /usr/bin/nutsh \
+ && adduser -S user \
+ && apk del readline-dev build-base
+
 USER user
 WORKDIR /home/user
 
