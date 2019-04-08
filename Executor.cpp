@@ -1,6 +1,11 @@
 #include "Executor.hpp"
 
-Executor::Executor(char * cmd) {
+
+pid_t actual_pid;
+
+
+Executor::Executor(char * cmd, bool is_bg) {
+  this->is_bg = is_bg;
   this->parse_error = wordexp(cmd, &(this->p), 0);
 
   switch(this->parse_error) {
@@ -18,6 +23,14 @@ Executor::Executor(char * cmd) {
       cout << "wordexp(...): An unhandled error happened, error code: " << this->parse_error << endl;
       break;
   }
+}
+
+
+void signal_handler(int s){
+    cout << endl;
+    cout << "Kill pid : " << actual_pid << endl;
+    kill(actual_pid,SIGKILL);
+    actual_pid = getpid();
 }
 
 int Executor::exec() {
@@ -38,11 +51,23 @@ int Executor::exec() {
     // make a fork
     pid_t pid = fork();
 
+    //signal handling only if process is not in background
+    if (!this->is_bg) {
+    actual_pid = pid;
+    struct sigaction sigIntHandler;
+    sigIntHandler.sa_handler = signal_handler;
+    sigemptyset(&sigIntHandler.sa_mask);
+    sigIntHandler.sa_flags = 0;
+    sigaction(SIGINT, &sigIntHandler, NULL);
+    }
+
+
     if (pid == -1 ) {
       cerr << "Fork failed: " << strerror(errno) << endl;
       status = errno;
     } else if (pid == 0) { // inside the child
       int result = execvp(argv[0], argv);
+
 
       // Executed only if execvp failed (mostly )
       // FIXME: reached this after a `hexdump nutsh` but the filename `nutsh`
@@ -57,10 +82,14 @@ int Executor::exec() {
       }
     } else { // parent of fork
       // TODO: manage background vs foreground
-      waitpid(pid, &status, 0);
-      status = WEXITSTATUS(status);
+      if (!this->is_bg) {
+        waitpid(pid, &status, 0);
+        status = WEXITSTATUS(status);
+        actual_pid = getpid(); // When proccess is done reset the pid
+      } // else not waiting on it
     }
   }
 
   return status;
 }
+

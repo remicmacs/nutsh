@@ -14,7 +14,13 @@ using namespace std;
 
 // Takes user input until they quit the shell, and passes that input as
 // arguments to be run.
-int main() {
+int main(int argc, char ** argv) {
+
+  if (argc > 1) {
+    char * filename = argv[1];
+    freopen(filename, "r", stdin);
+  }
+
   char ** cmdv = new char*[MAX_CMDS];
   int cmdc = 0;
   const char pipe[] = "|";
@@ -27,7 +33,6 @@ int main() {
   while (true) {
     // Display a prompt and get a line
     char * input = readline(prompt.getText().c_str());
-
     // Go to the next iteration if nothing was input
     if (input == NULL) {
       break;
@@ -50,10 +55,24 @@ int main() {
       ++(*cmd) = strtok(NULL, pipe);
     }
 
+    // Testing if bg job required
+    bool is_bg = input[strlen(input) -1] == '&';
+
+    // Strip input from '&' char if needed
+    char * stripped_input;
+    if (is_bg) {
+      stripped_input = new char[strlen(input) - 1];
+      strncpy(stripped_input, input, strlen(input) - 2);
+      stripped_input[strlen(input) - 2] = '\0';
+      delete input;
+    } else {
+      stripped_input = input;
+    }
+
     // DEBUG: remove after use
     clog << cmdc << " commands given" << endl;
 
-    Executor executor = Executor(input);
+    Executor executor = Executor(stripped_input, is_bg);
     int status = executor.exec();
     prompt.setPreviousReturn(status);
 

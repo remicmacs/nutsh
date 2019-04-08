@@ -20,7 +20,7 @@ LIBS = -lstdc++fs -lreadline
 INCLUDES =
 
 # define the C source files
-SRCS = main.cpp Builtin.cpp CDBuiltin.cpp PWDBuiltin.cpp EchoBuiltin.cpp ExportBuiltin.cpp Builtins.cpp Prompt.cpp Executor.cpp
+SRCS = main.cpp Builtin.cpp CDBuiltin.cpp PWDBuiltin.cpp EchoBuiltin.cpp ExportBuiltin.cpp Builtins.cpp Prompt.cpp Executor.cpp TypeBuiltin.cpp
 
 # define the C object files
 #
@@ -66,3 +66,6 @@ depend: $(SRCS)
 
 install:
 	install -m 755 $(MAIN) $(PKGDIR)/usr/bin
+
+debug: $(OBJS)
+	$(CXX) $(CFLAGS) -g $(INCLUDES) -o $(MAIN) $(OBJS) $(LFLAGS) $(LIBS)
