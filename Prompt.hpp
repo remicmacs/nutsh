@@ -4,14 +4,12 @@
 #include <string>
 #include <climits>
 #include <unistd.h>
-#include <filesystem>
 #include <pwd.h>
 
 #define PROMP_START_IGNORE "\001"
 #define PROMPT_END_IGNORE "\002"
 
 using namespace std;
-using namespace filesystem;
 
 class Prompt {
     private:

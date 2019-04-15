@@ -26,12 +26,17 @@ string Prompt::getText() {
     char * tmp;
 
     // Build the path string
-    string pwd = current_path();
+    char * cwd = new char[PATH_MAX];
+    cwd = getcwd(cwd, PATH_MAX);
+    string pwd = string(cwd);
+
+    // Get HOME environment
     string home = getenv("HOME");
     if (pwd.find(home, 0) == 0) {
         pwd.replace(0, home.length(), "~");
     }
 
+    // Shorten the long folder names in path
     string fragment;
     istringstream tokenStream(pwd);
     string new_pwd = "";
