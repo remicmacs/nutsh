@@ -7,9 +7,10 @@ Pronounced *« nutshell »* (/ˈnʌtʃel/)
 <img align="right" src="logo.png" alt="drawing" width="128px"/>
 
 - [:sparkles: Features](#sparkles-features)
-- [:checkered_flag: Getting started](#checkered_flag-getting-started)
+- [:checkered_flag: Getting started](#checkeredflag-getting-started)
   - [:package: Build dependencies](#package-build-dependencies)
-  - [:clown_face: `make` for dummies](#clown_face-make-for-dummies)
+  - [:clown_face: `make` for dummies](#clownface-make-for-dummies)
+  - [:penguin: Compilation on Debian systems](#penguin-compilation-on-debian-systems)
 - [:gear: Builtin commands](#gear-builtin-commands)
 - [:mailbox: Contact us](#mailbox-contact-us)
 
@@ -21,10 +22,11 @@ nutsh is **barely usable** ! Enjoy using your system **the hard way** ! With nut
 
 Here is some of the most notable features :
 
-* Command history
-* File autocompletion
-* Command expansion
-* Cool name
+- Command history
+- File autocompletion
+- Command expansion
+- Cool name
+- Really fast (thanks to almost no unnecessary features)
 
 ## :checkered_flag: Getting started
 
@@ -32,9 +34,9 @@ A build script is [available for Arch Linux](https://github.com/rodolpheh/nutsh-
 
 ### :package: Build dependencies
 
-* `make`
-* `g++`
-* `readline`
+- `make`
+- `g++`
+- `readline`
 
 ### :clown_face: `make` for dummies
 
@@ -53,17 +55,49 @@ A build script is [available for Arch Linux](https://github.com/rodolpheh/nutsh-
 3. Build the shell with `make`
 4. *Voilà* !! :tada:
 
+### :penguin: Compilation on Debian systems
+
+On Debian and Ubuntu systems you can build the project like this :
+
+1. Install needed software
+
+   ```bash
+   apt install librealine-dev unzip build-essential
+   ```
+
+2. Dowload the source
+
+   ```bash
+   wget https://github.com/remicmacs/nutsh/archive/master.zip
+   ```
+
+3. Decompress and step into directory
+
+   ```bash
+   unzip master.zip
+   cd nusth-master
+   ```
+
+4. Launch compilation with `make`
+
+   ```bash
+   make
+   ```
+
+5. That's it ! :tada:
+
 ## :gear: Builtin commands
 
 Here is a list of shell builtin commands implemented in nutsh.
 
-| Command name | Takes arguments    | Has options | Status             |
-| ------------ | ------------------ | ----------- | ------------------ |
-| `cd`         | :heavy_check_mark: | :x:         | :heavy_check_mark: |
-| `pwd`        | :x:                | :x:         | :heavy_check_mark: |
-| `exit`       | :x:                | :x:         | :heavy_check_mark: |
-| `echo`       | :heavy_check_mark: | :x:         | :heavy_check_mark: |
-| `type`       | :x:                | :x:         | :heavy_check_mark: |
+| Command name | Takes arguments    | Has options        | Status             |
+| ------------ | ------------------ | ------------------ | ------------------ |
+| `cd`         | :heavy_check_mark: | :x:                | :heavy_check_mark: |
+| `pwd`        | :x:                | :x:                | :heavy_check_mark: |
+| `exit`       | :x:                | :x:                | :heavy_check_mark: |
+| `echo`       | :heavy_check_mark: | :x:                | :heavy_check_mark: |
+| `type`       | :x:                | :x:                | :heavy_check_mark: |
+| `export`     | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
 
 ## :mailbox: Contact us
 
