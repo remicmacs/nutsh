@@ -1,18 +1,21 @@
 # :nut_and_bolt: nutsh
 
-[![Build Status](https://img.shields.io/travis/com/remicmacs/nutsh/master.svg?style=for-the-badge&logo=travis)](https://travis-ci.com/remicmacs/nutsh) [![Made with C++](https://img.shields.io/badge/Made%20with-C++-C1282D.svg?style=for-the-badge&labelColor=EF4041)](https://isocpp.org/) [![Works on my machine](https://img.shields.io/badge/Works-on%20my%20machine-5593C7.svg?style=for-the-badge&labelColor=A7BFC1)](https://i.redd.it/ygjaybp2l5c21.jpg) [![License CRAPL](https://img.shields.io/badge/License-CRAPL-1C1C1D.svg?style=for-the-badge&labelColor=B0AEAF)](CRAPL-LICENSE.txt) [![Built for Linux](https://img.shields.io/badge/Built%20for-Linux-C13D3B.svg?style=for-the-badge&labelColor=EA4761&logo=linux&logoColor=FFFFFF)](https://www.gnu.org/home.en.html) [![Built for MacOSX](https://img.shields.io/badge/Built%20for-MacOSX-C13D3B.svg?style=for-the-badge&labelColor=EA4761&logo=apple&logoColor=FFFFFF)](https://i.chzbgr.com/full/4378633984/h42BE4AB4/)
+[![Build Status](https://img.shields.io/travis/com/remicmacs/nutsh/master.svg?style=for-the-badge&logo=travis)](https://travis-ci.com/remicmacs/nutsh) [![License CRAPL](https://img.shields.io/badge/License-CRAPL-1C1C1D.svg?style=for-the-badge&labelColor=B0AEAF)](CRAPL-LICENSE.txt) ![Code size](https://img.shields.io/github/languages/code-size/remicmacs/nutsh.svg?style=for-the-badge) [![GitHub release](https://img.shields.io/github/release/remicmacs/nutsh.svg?style=for-the-badge)](https://github.com/remicmacs/nutsh/releases/latest)
+
+[![Built for Linux](https://img.shields.io/badge/Built%20for-Linux-C13D3B.svg?style=for-the-badge&labelColor=EA4761&logo=linux&logoColor=FFFFFF)](https://www.gnu.org/home.en.html) [![Built for MacOSX](https://img.shields.io/badge/Built%20for-MacOSX-C13D3B.svg?style=for-the-badge&labelColor=EA4761&logo=apple&logoColor=FFFFFF)](https://i.chzbgr.com/full/4378633984/h42BE4AB4/) [![Made with C++](https://img.shields.io/badge/Made%20with-C++-C1282D.svg?style=for-the-badge&labelColor=EF4041)](https://isocpp.org/) [![Works on my machine](https://img.shields.io/badge/Works-on%20my%20machine-5593C7.svg?style=for-the-badge&labelColor=A7BFC1)](https://i.redd.it/ygjaybp2l5c21.jpg)
 
 Pronounced *« nutshell »* (/ˈnʌtʃel/)
 
 <img align="right" src="logo.png" alt="drawing" width="128px"/>
 
 - [:sparkles: Features](#sparkles-features)
-- [:checkered_flag: Getting started](#checkeredflag-getting-started)
+- [:checkered_flag: Getting started](#checkered_flag-getting-started)
   - [:package: Build dependencies](#package-build-dependencies)
-  - [:clown_face: `make` for dummies](#clownface-make-for-dummies)
+  - [:clown_face: `make` for dummies](#clown_face-make-for-dummies)
   - [:penguin: Compilation on Debian systems](#penguin-compilation-on-debian-systems)
 - [:gear: Builtin commands](#gear-builtin-commands)
 - [:mailbox: Contact us](#mailbox-contact-us)
+- [:interrobang: What the hell is this versioning scheme ?](#interrobang-what-the-hell-is-this-versioning-scheme-)
 
 [![Asciinema](res/asciinema.gif)](https://asciinema.org/a/RDZOFZoycUhqoW25VII5tl6AX)
 
@@ -62,7 +65,7 @@ On Debian and Ubuntu systems you can build the project like this :
 1. Install needed software
 
    ```bash
-   apt install librealine-dev unzip build-essential
+   apt install libreadline-dev unzip build-essential
    ```
 
 2. Dowload the source
@@ -111,3 +114,30 @@ You can get in touch with the dev team in a really straightforward way :
 6. Lose all hope
 7. You don't want to get in touch anymore
 8. Success : it was a school project anyways!
+
+## :interrobang: What the hell is this versioning scheme ?
+
+This is a new versioning scheme we invented that we're calling *revolver* (for *revolution* - *version*). It is based on [*calver*](http://calver.org/) but it uses the [Holocen calendar](https://en.wikipedia.org/wiki/Holocene_calendar) for the year and the [French Republican calendar](https://en.wikipedia.org/wiki/French_Republican_calendar) for the month and day. If you plan to release more than a version in a day, you can add a revision number by appending the current time in [decimal time](https://en.wikipedia.org/wiki/French_Republican_calendar).
+
+As an example, this is the version of the first release :
+
+```
+12019.07.26-0870
+──┬── ┌─ ┌─ ─┬──
+  │   │  │   │
+──┴─ ─┘ ─┘ ──┴───────────
+2019-04-16T20:52:00+02:00
+```
+
+We can deduce the release date, in the standard ISO time:
+
+|      Fragment       | Conversion                  |
+| :-----------------: | :-------------------------- |
+|      **12019**      | 12019 - 10000 = **2019 AD** |
+| **07** (*Germinal*) | **04** (*April*)            |
+|  **26** (*Lilas*)   | **16** (*Saint Paterne*)    |
+|  **0870** (08h70)   | 8 * 2.4 = 19h 12min         |
+|                     | 70 * 1.44 = 1h 40min        |
+|                     | Total : **20h 52min**       |
+
+Or in a simpler way : 12019.07.26-0870 = 2019-04-16T20:52:00+02:00.
