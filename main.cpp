@@ -70,7 +70,7 @@ int main(int argc, char ** argv) {
     }
 
     // DEBUG: remove after use
-    clog << cmdc << " commands given" << endl;
+    // clog << cmdc << " commands given" << endl;
 
     Executor executor = Executor(stripped_input, is_bg);
     int status = executor.exec();
