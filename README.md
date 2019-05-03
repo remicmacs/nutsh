@@ -9,13 +9,14 @@ Pronounced *« nutshell »* (/ˈnʌtʃel/)
 <img align="right" src="logo.png" alt="drawing" width="128px"/>
 
 - [:sparkles: Features](#sparkles-features)
-- [:checkered_flag: Getting started](#checkered_flag-getting-started)
+- [:checkered_flag: Getting started](#checkeredflag-getting-started)
   - [:package: Build dependencies](#package-build-dependencies)
-  - [:clown_face: `make` for dummies](#clown_face-make-for-dummies)
+  - [:clown_face: `make` for dummies](#clownface-make-for-dummies)
   - [:penguin: Compilation on Debian systems](#penguin-compilation-on-debian-systems)
 - [:gear: Builtin commands](#gear-builtin-commands)
+- [:memo: Documentation](#memo-documentation)
 - [:mailbox: Contact us](#mailbox-contact-us)
-- [:interrobang: What the hell is this versioning scheme ?](#interrobang-what-the-hell-is-this-versioning-scheme-)
+- [:interrobang: What the hell is this versioning scheme ?](#interrobang-what-the-hell-is-this-versioning-scheme)
 
 [![Asciinema](res/asciinema.gif)](https://asciinema.org/a/RDZOFZoycUhqoW25VII5tl6AX)
 
@@ -101,6 +102,23 @@ Here is a list of shell builtin commands implemented in nutsh.
 | `echo`       | :heavy_check_mark: | :x:                | :heavy_check_mark: |
 | `type`       | :x:                | :x:                | :heavy_check_mark: |
 | `export`     | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: |
+
+## :memo: Documentation
+
+Some (very basic) documenation is provided. Most of it is inline in the source.
+
+[Specifications](specifications.md) are provided. They are in French, as required by the assignment.
+A lot of it is not yet implemented, but might be one day if we feel like it.
+
+Anyone wanting to have a broader look at this project should build the docs with [doxygen](http://doxygen.nl/) and the provided configuration :
+
+```bash
+doxygen doxygenrc
+```
+
+HTML docs would then be accessible with `docs/html/index.html` being the entrypoint.
+
+The documentation is far from perfect but it helps.
 
 ## :mailbox: Contact us
 
